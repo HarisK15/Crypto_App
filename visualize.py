@@ -3,6 +3,8 @@ import os
 from datetime import datetime
 import matplotlib.pyplot as plt
 import argparse
+import matplotlib.dates as mdates
+
 
 def main():
     parser = argparse.ArgumentParser()
@@ -27,7 +29,7 @@ def plot_price_history(coin):
         print("could not decode json")
         return
 
-    filtered_data = [item for item in data if item["coin"] == coin]
+    filtered_data = [item for item in data if item["coin"].lower() == coin.lower()]
     if not filtered_data:
         print("could not find coin")
         return
@@ -40,7 +42,11 @@ def plot_price_history(coin):
         timestamps.append(item['timestamp'])
         prices.append(item['price'])
 
+
+
     formatted_timestamps = [datetime.fromisoformat(item) for item in timestamps]
+
+
 
 
     plt.plot(formatted_timestamps, prices, marker='o')
@@ -50,6 +56,9 @@ def plot_price_history(coin):
     plt.grid(True)
     plt.tight_layout()
     plt.xticks(rotation=45)
+    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%H:%M'))
+    plt.gca().xaxis.set_major_locator(mdates.AutoDateLocator())
+    plt.tight_layout()
     plt.show()
 
 
