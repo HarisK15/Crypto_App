@@ -1,0 +1,262 @@
+[
+    {
+        "coin": "ethereum",
+        "timestamp": "2025-07-15T13:20:20.821507",
+        "price": 2980.07
+    },
+    {
+        "coin": "solana",
+        "timestamp": "2025-07-15T13:20:20.822564",
+        "price": 159.66
+    },
+    {
+        "coin": "bitcoin",
+        "timestamp": "2025-07-15T13:20:20.823059",
+        "price": 117059
+    },
+    {
+        "coin": "ethereum",
+        "timestamp": "2025-07-15T13:42:06.236646",
+        "price": 2998.08
+    },
+    {
+        "coin": "solana",
+        "timestamp": "2025-07-15T13:42:06.237846",
+        "price": 159.75
+    },
+    {
+        "coin": "bitcoin",
+        "timestamp": "2025-07-15T13:42:06.238340",
+        "price": 117132
+    },
+    {
+        "coin": "ethereum",
+        "timestamp": "2025-07-15T13:43:15.654954",
+        "price": 2996.27
+    },
+    {
+        "coin": "ethereum",
+        "timestamp": "2025-07-15T13:44:00.278566",
+        "price": 2996.27
+    },
+    {
+        "coin": "solana",
+        "timestamp": "2025-07-15T13:44:07.010234",
+        "price": 159.71
+    },
+    {
+        "coin": "bitcoin",
+        "timestamp": "2025-07-15T13:44:09.592581",
+        "price": 117086
+    },
+    {
+        "coin": "ethereum",
+        "timestamp": "2025-07-15T13:58:05.614083",
+        "price": 3000.87
+    },
+    {
+        "coin": "solana",
+        "timestamp": "2025-07-15T13:58:05.615025",
+        "price": 159.95
+    },
+    {
+        "coin": "bitcoin",
+        "timestamp": "2025-07-15T13:58:05.615617",
+        "price": 117143
+    },
+    {
+        "coin": "ethereum",
+        "timestamp": "2025-07-15T14:01:05.722005",
+        "price": 3002.15
+    },
+    {
+        "coin": "solana",
+        "timestamp": "2025-07-15T14:01:05.723185",
+        "price": 159.85
+    },
+    {
+        "coin": "bitcoin",
+        "timestamp": "2025-07-15T14:01:05.723971",
+        "price": 117189
+    },
+    {
+        "coin": "ethereum",
+        "timestamp": "2025-07-15T14:08:06.760506",
+        "price": 3007.43
+    },
+    {
+        "coin": "solana",
+        "timestamp": "2025-07-15T14:08:06.761590",
+        "price": 160.05
+    },
+    {
+        "coin": "bitcoin",
+        "timestamp": "2025-07-15T14:08:06.762096",
+        "price": 117329
+    },
+    {
+        "coin": "ethereum",
+        "timestamp": "2025-07-15T14:33:32.992774",
+        "price": 3026.92
+    },
+    {
+        "coin": "solana",
+        "timestamp": "2025-07-15T14:33:32.994334",
+        "price": 160.58
+    },
+    {
+        "coin": "bitcoin",
+        "timestamp": "2025-07-15T14:33:32.994974",
+        "price": 117725
+    },
+    {
+        "coin": "ethereum",
+        "timestamp": "2025-07-15T14:43:34.218894",
+        "price": 3029.24
+    },
+    {
+        "coin": "solana",
+        "timestamp": "2025-07-15T14:43:34.221525",
+        "price": 160.38
+    },
+    {
+        "coin": "bitcoin",
+        "timestamp": "2025-07-15T14:43:34.222498",
+        "price": 117827
+    },
+    {
+        "coin": "ethereum",
+        "timestamp": "2025-07-15T14:53:39.272861",
+        "price": 3047.62
+    },
+    {
+        "coin": "solana",
+        "timestamp": "2025-07-15T14:53:39.274346",
+        "price": 161.17
+    },
+    {
+        "coin": "bitcoin",
+        "timestamp": "2025-07-15T14:53:39.275568",
+        "price": 118164
+    },
+    {
+        "coin": "ethereum",
+        "timestamp": "2025-07-15T15:03:40.664513",
+        "price": 3054.63
+    },
+    {
+        "coin": "solana",
+        "timestamp": "2025-07-15T15:03:40.666834",
+        "price": 161.5
+    },
+    {
+        "coin": "bitcoin",
+        "timestamp": "2025-07-15T15:03:40.667730",
+        "price": 118189
+    },
+    {
+        "coin": "ethereum",
+        "timestamp": "2025-07-15T15:13:42.000256",
+        "price": 3056.25
+    },
+    {
+        "coin": "solana",
+        "timestamp": "2025-07-15T15:13:42.002622",
+        "price": 161.58
+    },
+    {
+        "coin": "bitcoin",
+        "timestamp": "2025-07-15T15:13:42.003737",
+        "price": 118246
+    },
+    {
+        "coin": "ethereum",
+        "timestamp": "2025-07-15T15:23:43.329495",
+        "price": 3054.13
+    },
+    {
+        "coin": "solana",
+        "timestamp": "2025-07-15T15:23:43.331806",
+        "price": 161.77
+    },
+    {
+        "coin": "bitcoin",
+        "timestamp": "2025-07-15T15:23:43.333589",
+        "price": 118063
+    },
+    {
+        "coin": "ethereum",
+        "timestamp": "2025-07-15T15:33:44.598464",
+        "price": 3046.26
+    },
+    {
+        "coin": "solana",
+        "timestamp": "2025-07-15T15:33:44.600471",
+        "price": 161.42
+    },
+    {
+        "coin": "bitcoin",
+        "timestamp": "2025-07-15T15:33:44.602070",
+        "price": 117597
+    },
+    {
+        "coin": "ethereum",
+        "timestamp": "2025-07-15T15:43:45.833411",
+        "price": 3040.85
+    },
+    {
+        "coin": "solana",
+        "timestamp": "2025-07-15T15:43:45.835286",
+        "price": 161.01
+    },
+    {
+        "coin": "bitcoin",
+        "timestamp": "2025-07-15T15:43:45.836027",
+        "price": 117065
+    },
+    {
+        "coin": "ethereum",
+        "timestamp": "2025-07-15T15:53:47.685662",
+        "price": 3009.88
+    },
+    {
+        "coin": "solana",
+        "timestamp": "2025-07-15T15:53:47.688315",
+        "price": 159.16
+    },
+    {
+        "coin": "bitcoin",
+        "timestamp": "2025-07-15T15:53:47.690202",
+        "price": 116735
+    },
+    {
+        "coin": "ethereum",
+        "timestamp": "2025-07-15T16:03:48.835086",
+        "price": 2980.28
+    },
+    {
+        "coin": "solana",
+        "timestamp": "2025-07-15T16:03:48.837894",
+        "price": 158.63
+    },
+    {
+        "coin": "bitcoin",
+        "timestamp": "2025-07-15T16:03:48.839716",
+        "price": 116105
+    },
+    {
+        "coin": "ethereum",
+        "timestamp": "2025-07-15T16:13:50.727555",
+        "price": 2990.59
+    },
+    {
+        "coin": "solana",
+        "timestamp": "2025-07-15T16:13:50.731384",
+        "price": 158.32
+    },
+    {
+        "coin": "bitcoin",
+        "timestamp": "2025-07-15T16:13:50.733312",
+        "price": 116236
+    }
+]

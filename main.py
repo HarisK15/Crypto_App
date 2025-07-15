@@ -8,7 +8,8 @@ import os
 from datetime import datetime
 from logger import log_to_file
 from notifier import send_email_alert
-
+from logger import log_price_history
+from visualize import plot_price_history
 
 try:
     while True:
@@ -33,6 +34,8 @@ try:
                 alerts.append(message)
                 print(message)
                 log_to_file(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} — {message}")
+                log_price_history(price, coin)
+
 
         if alerts:
             combined_message = "\n".join(alerts)
