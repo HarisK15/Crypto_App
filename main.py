@@ -7,25 +7,8 @@ from utils import fetch_prices_batch
 import os
 from datetime import datetime
 from logger import log_to_file
-# parser = argparse.ArgumentParser()
-# parser.add_argument("--coin", type = str, required= True)
-# parser.add_argument("--threshold", type = int, required=True)
-# parser.add_argument("--direction", type = str, required= True, choices=["above", "below"])
-# args = parser.parse_args()
-#
-#
-#
-# price = fetch_price(args.coin)
-#
-#
-#
-#
-#
-# if price is None:
-#     print(f"❌ Could not fetch price for {args.coin}.")
-# else:
-#     message = check_alert(price, args.threshold, args.direction, args.coin)
-#     print(message)
+from notifier import send_email_alert
+
 
 try:
     while True:
@@ -34,6 +17,8 @@ try:
 
         coin_ids = [item["coin"] for item in watchlist]
         prices = fetch_prices_batch(coin_ids)
+
+        alerts = []
 
         for item in watchlist:
             coin = item["coin"]
@@ -45,8 +30,13 @@ try:
                 print(f" Could not fetch price for {coin}.")
             else:
                 message = check_alert(price, threshold, direction, coin)
+                alerts.append(message)
                 print(message)
                 log_to_file(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} — {message}")
+
+        if alerts:
+            combined_message = "\n".join(alerts)
+            send_email_alert("cryptoproject543@gmail.com", "Crypto Price Alerts", combined_message)
 
         print("\n waiting 10 minutes...")
         print(f"\n {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} — Checking crypto prices...\n")

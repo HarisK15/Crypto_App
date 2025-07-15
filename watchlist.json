@@ -1,17 +1,17 @@
 [
-  {
-    "coin": "bitcoin",
-    "threshold": 65000,
-    "direction": "above"
-  },
-  {
-    "coin": "ethereum",
-    "threshold": 3000,
-    "direction": "below"
-  },
-  {
-    "coin": "solana",
-    "threshold": 150,
-    "direction": "above"
-  }
+    {
+        "coin": "ethereum",
+        "threshold": 3000,
+        "direction": "below"
+    },
+    {
+        "coin": "solana",
+        "threshold": 150,
+        "direction": "above"
+    },
+    {
+        "coin": "bitcoin",
+        "threshold": 80000,
+        "direction": "above"
+    }
 ]
