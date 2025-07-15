@@ -1,0 +1,4 @@
+coin,price,threshold,direction
+ethereum,3049.24,3000,below
+solana,161.0,150,above
+bitcoin,117094,80000,above

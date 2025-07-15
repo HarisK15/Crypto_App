@@ -1,17 +1,11 @@
 import json
 import os
 import argparse
+import csv
 
 from utils import *
 
-def main():
-    parser = argparse.ArgumentParser()
-    subparsers = parser.add_subparsers(dest="command", required=True)
-    subparsers.add_parser("portfolio")
-    args = parser.parse_args()
 
-    if args.command == "portfolio":
-        display_portfolio()
 
 def display_portfolio():
     filename = "watchlist.json"
@@ -36,7 +30,51 @@ def display_portfolio():
             print(f"{coin.capitalize()}: ${price} (threshold: {threshold}, direction: {direction}) → {status}")
 
 
+def write_to_csv(data):
+    filename = "portfolio_export.csv"
+    if not data:
+        print("No data found")
+        return
+    with open(filename, "w", newline="") as csv_file:
+        writer = csv.DictWriter(csv_file, fieldnames=data[0].keys())
+        writer.writeheader()
+        writer.writerows(data)
+    print("Portfolio exported to CSV")
 
+
+def prepare_portfolio_data():
+    watchlist = fetch_watchlist("watchlist.json")
+    data = []
+
+    for item in watchlist:
+        coin = item["coin"]
+        threshold = item["threshold"]
+        direction = item["direction"]
+        price = fetch_price(coin)
+
+        data.append({
+            "coin": coin,
+            "price": price,
+            "threshold": threshold,
+            "direction": direction
+        })
+
+    return data
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    subparsers = parser.add_subparsers(dest="command", required=True)
+    subparsers.add_parser("portfolio")
+    export_parser = subparsers.add_parser("export")
+    args = parser.parse_args()
+
+    if args.command == "portfolio":
+        display_portfolio()
+
+    if args.command == "export":
+        data = prepare_portfolio_data()
+        write_to_csv(data)
 
 if __name__ == "__main__":
     main()
