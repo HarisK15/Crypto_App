@@ -110,23 +110,25 @@ def main():
             # plt.tight_layout()
             # st.pyplot(plt)
 
+            df = get_price_history(selected_coin)
+            if df is not None:
+                csv_buffer = io.StringIO()
+                df.to_csv(csv_buffer, index=False)
+                st.download_button(
+                    label="⬇️ Download Price History as CSV",
+                    data=csv_buffer.getvalue(),
+                    file_name=f"{selected_coin}_price_history.csv",
+                    mime="text/csv"
+                )
+            else:
+                st.warning("No price history available for CSV export.")
+
     else:
         st.write("no coins in watchlist")
 
 
 
-    df = get_price_history(selected_coin)
-    if df is not None:
-        csv_buffer = io.StringIO()
-        df.to_csv(csv_buffer, index=False)
-        st.download_button(
-            label="⬇️ Download Price History as CSV",
-            data=csv_buffer.getvalue(),
-            file_name=f"{selected_coin}_price_history.csv",
-            mime="text/csv"
-        )
-    else:
-        st.warning("No price history available for CSV export.")
+
 
 
 

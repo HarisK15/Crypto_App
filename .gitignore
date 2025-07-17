@@ -6,3 +6,4 @@ venv/
 *.log
 watchlist.json
 price_history.json
+
