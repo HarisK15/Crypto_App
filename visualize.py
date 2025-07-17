@@ -6,17 +6,7 @@ import argparse
 import matplotlib.dates as mdates
 
 
-def main():
-    parser = argparse.ArgumentParser()
-    subparsers = parser.add_subparsers(dest="command", required=True)
 
-    plot_parser = subparsers.add_parser("plot")
-    plot_parser.add_argument("--coin", type=str, required=True)
-
-    args = parser.parse_args()
-
-    if args.command == "plot":
-        plot_price_history(args.coin)
 
 
 def plot_price_history(coin):
@@ -65,7 +55,16 @@ def plot_price_history(coin):
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    subparsers = parser.add_subparsers(dest="command", required=True)
+
+    plot_parser = subparsers.add_parser("plot")
+    plot_parser.add_argument("--coin", type=str, required=True)
+
+    args = parser.parse_args()
+
+    if args.command == "plot":
+        plot_price_history(args.coin)
 
 
 

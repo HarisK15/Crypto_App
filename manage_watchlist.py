@@ -1,22 +1,8 @@
 import json
 import argparse
 import os
+import streamlit as st
 
-
-parser = argparse.ArgumentParser()
-subparsers = parser.add_subparsers(dest="command", required=True)
-
-add_parser = subparsers.add_parser("add")
-add_parser.add_argument("--coin", type=str, required=True)
-add_parser.add_argument("--threshold", type=int, required=True)
-add_parser.add_argument("--direction", type=str, required=True, choices=["above", "below"])
-
-remove_parser = subparsers.add_parser("remove")
-remove_parser.add_argument("--coin", type=str, required=True)
-
-show_parser = subparsers.add_parser("show")
-
-args = parser.parse_args()
 
 def add_to_watchlist(coin, threshold, direction):
     filename = "watchlist.json"
@@ -31,7 +17,7 @@ def add_to_watchlist(coin, threshold, direction):
                 pass
     for item in data:
         if item["coin"] == coin and item["threshold"] == threshold and item["direction"] == direction:
-            print(f"alert is already in the watchlist")
+            st.write(f"alert is already in the watchlist")
             return
 
 
@@ -39,7 +25,7 @@ def add_to_watchlist(coin, threshold, direction):
     data.append(new_dict)
     with open(filename, 'w') as f:
         json.dump(data, f,indent=4)
-        print(f"Added {coin} to watchlist")
+        st.write(f"Added {coin} to watchlist")
 
 
 
@@ -84,9 +70,23 @@ def show_watchlist():
 
 
 
-if args.command == "add":
-    add_to_watchlist(args.coin, args.threshold, args.direction)
-elif args.command == "remove":
-    remove_from_watchlist(args.coin)
-elif args.command == "show":
-    show_watchlist()
+
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    subparsers = parser.add_subparsers(dest="command", required=True)
+    add_parser = subparsers.add_parser("add")
+    add_parser.add_argument("--coin", type=str, required=True)
+    add_parser.add_argument("--threshold", type=int, required=True)
+    add_parser.add_argument("--direction", type=str, required=True, choices=["above", "below"])
+    remove_parser = subparsers.add_parser("remove")
+    remove_parser.add_argument("--coin", type=str, required=True)
+    show_parser = subparsers.add_parser("show")
+    args = parser.parse_args()
+    if args.command == "add":
+        add_to_watchlist(args.coin, args.threshold, args.direction)
+    elif args.command == "remove":
+        remove_from_watchlist(args.coin)
+    elif args.command == "show":
+        show_watchlist()
