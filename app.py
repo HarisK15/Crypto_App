@@ -11,6 +11,12 @@ import io
 import matplotlib.pyplot as plt
 from utils import fetch_prices_batch
 
+default_watchlist = [
+    {"coin": "bitcoin", "threshold": 100000, "direction": "above"},
+    {"coin": "ethereum", "threshold": 3000, "direction": "above"},
+    {"coin": "solana", "threshold": 200, "direction": "below"}
+]
+
 @st.cache_data(ttl=300)
 def get_price_history_df(coin):
     filename = "price_history.json"
@@ -67,9 +73,9 @@ def main():
         with open(watchlist_file, "r") as f:
             watchlist = json.load(f)
     else:
-        watchlist = []
+        watchlist = default_watchlist
         with open(watchlist_file, "w") as f:
-            json.dump(watchlist, f)
+            json.dump(watchlist, f, indent=4)
     coin_names = list(set(item["coin"] for item in watchlist))
     price_data = fetch_prices_batch(coin_names)
 
