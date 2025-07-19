@@ -68,7 +68,8 @@ def main():
             watchlist = json.load(f)
     else:
         watchlist = []
-
+        with open(watchlist_file, "w") as f:
+            json.dump(watchlist, f)
     coin_names = list(set(item["coin"] for item in watchlist))
     price_data = fetch_prices_batch(coin_names)
 
