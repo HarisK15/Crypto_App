@@ -9,7 +9,9 @@ from datetime import datetime
 import pandas as pd
 import io
 import matplotlib.pyplot as plt
+from utils import fetch_prices_batch
 
+@st.cache_data(ttl=300)
 def get_price_history_df(coin):
     filename = "price_history.json"
     if not os.path.exists(filename):
@@ -26,10 +28,11 @@ def get_price_history_df(coin):
                 for entry in data if entry["coin"] == coin
             ]
             df = pd.DataFrame(coin_data)
-            return df.sort_values("timestamp")  # ✅ Sort before plotting
+            return df.sort_values("timestamp")
     except json.JSONDecodeError:
         return pd.DataFrame()
 
+@st.cache_data(ttl=300)
 def get_price_history(coin):
     filename = "price_history.json"
     if not os.path.exists(filename):
@@ -56,7 +59,7 @@ def main():
 
 
     st.title("📈 Crypto Watchlist Dashboard")
-    st_autorefresh(interval=60000, key="datarefresh")
+    # st_autorefresh(interval=60000, key="datarefresh")
 
     # 2. Load Watchlist
     watchlist_file = "watchlist.json"
@@ -66,14 +69,17 @@ def main():
     else:
         watchlist = []
 
+    coin_names = list(set(item["coin"] for item in watchlist))
+    price_data = fetch_prices_batch(coin_names)
+
 
     st.subheader("🔍 Current Prices")
     for item in watchlist:
         coin = item["coin"]
         threshold = item["threshold"]
         direction = item["direction"]
-        price = fetch_price(coin)
-        st.metric(label=f"{coin.capitalize()} price", value=f"${price}")
+        price = price_data.get(coin, {}).get("usd")
+        st.metric(label=f"{coin.capitalize()} price", value=f"${price}" if price else "N/A")
         st.caption(f"Alert when {direction} {threshold}")
 
 
@@ -88,7 +94,7 @@ def main():
         selected_coin = st.selectbox("Select a coin", sorted(coin_names))
 
         if selected_coin:
-            price = fetch_price(selected_coin)
+            price = price_data.get(selected_coin, {}).get("usd")
             if price:
                 st.metric(label=f"{selected_coin.capitalize()} price", value=f"${price}")
             else:
@@ -134,26 +140,7 @@ def main():
 
 
 
-    st.subheader("➕ Add New Coin")
-    with st.form("add_form"):
-        coin = st.text_input("Coin ID (e.g., bitcoin)")
-        threshold = st.number_input("Threshold", step=1.0)
-        direction = st.selectbox("Direction", ["above", "below"])
-        submitted = st.form_submit_button("Add")
-        if submitted:
-            add_to_watchlist(coin, threshold, direction)
-            st.success(f"Added {coin} to watchlist")
 
-
-    st.subheader("❌ Remove Coin")
-    with st.form("remove_form"):
-        coin_to_remove = st.selectbox("Coin to remove", coin_names)
-        removed = st.form_submit_button("Remove")
-        if removed:
-            remove_from_watchlist(coin_to_remove)
-            st.success(f"Removed {coin_to_remove} from watchlist")
-
-    st.write("Last refreshed at:", datetime.now().strftime("%H:%M:%S"))
 
 
 
