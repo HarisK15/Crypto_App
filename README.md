@@ -86,5 +86,4 @@ This project is open-source and available under the MIT License.
 
 👤 Author
 
-Haris
-Backend-focused developer with experience in API integrations, data handling, and dashboard creation.
+Haris Kamran
