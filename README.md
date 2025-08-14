@@ -2,6 +2,7 @@
 
 cryptocurrency monitoring and alert system built with Streamlit, featuring real-time price tracking, intelligent alerts, database persistence, and comprehensive notification systems.
 
+live link: https://crypto-manager.streamlit.app/
 
 ## Features
 
@@ -223,6 +224,6 @@ Set these in your deployment environment:
 3. **Email Issues**: Verify SMTP settings and app passwords
 4. **Import Errors**: Ensure all dependencies are installed
 
-
 Author:
 Haris Kamran
+=======
