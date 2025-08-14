@@ -1,0 +1,131 @@
+# Crypto Alert Application Configuration
+
+# Application Settings
+app:
+  name: "Crypto Alert Dashboard"
+  version: "2.0.0"
+  debug: false
+  log_level: "INFO"
+  auto_refresh_interval: 60000  # milliseconds
+  max_price_history_days: 30
+
+# API Configuration
+api:
+  coingecko:
+    base_url: "https://api.coingecko.com/api/v3"
+    timeout: 10
+    rate_limit_delay: 1.1
+    max_retries: 3
+    cache_ttl: 300  # seconds
+  
+  gnews:
+    base_url: "https://gnews.io/api/v4"
+    api_key: "${GNEWS_API_KEY}"
+    timeout: 10
+    max_articles: 20
+
+# Database Configuration
+database:
+  type: "sqlite"  # Options: sqlite, postgresql, mysql
+  sqlite:
+    path: "data/crypto_alert.db"
+  postgresql:
+    host: "${DB_HOST}"
+    port: "${DB_PORT}"
+    database: "${DB_NAME}"
+    username: "${DB_USER}"
+    password: "${DB_PASSWORD}"
+    ssl_mode: "prefer"
+
+# Notification Settings
+notifications:
+  email:
+    enabled: "${EMAIL_NOTIFICATIONS_ENABLED}"
+    smtp_server: "${SMTP_SERVER}"
+    smtp_port: "${SMTP_PORT}"
+    username: "${EMAIL_USERNAME}"
+    password: "${EMAIL_PASSWORD}"
+    sender_email: "${SENDER_EMAIL}"
+    default_recipients: []
+  
+  webhook:
+    enabled: "${WEBHOOK_NOTIFICATIONS_ENABLED}"
+    url: "${WEBHOOK_URL}"
+    headers: {}
+    timeout: 10
+  
+  sms:
+    enabled: "${SMS_NOTIFICATIONS_ENABLED}"
+    provider: "twilio"
+    account_sid: "${TWILIO_ACCOUNT_SID}"
+    auth_token: "${TWILIO_AUTH_TOKEN}"
+    from_number: "${TWILIO_FROM_NUMBER}"
+
+# Alert Configuration
+alerts:
+  default_thresholds:
+    bitcoin:
+      above: 100000
+      below: 50000
+    ethereum:
+      above: 3000
+      below: 1500
+    solana:
+      above: 200
+      below: 100
+  
+  check_interval: 300  # seconds
+  max_alerts_per_hour: 10
+  alert_history_retention_days: 7
+
+# Data Storage
+storage:
+  price_history:
+    max_records_per_coin: 10000
+    cleanup_interval_hours: 24
+    backup_enabled: true
+    backup_interval_hours: 6
+  
+  watchlist:
+    max_coins: 100
+    backup_enabled: true
+
+# Security
+security:
+  max_login_attempts: 5
+  session_timeout_minutes: 60
+  password_min_length: 8
+  require_2fa: false
+
+# UI/UX Settings
+ui:
+  theme: "light"  # Options: light, dark, auto
+  default_page: "dashboard"
+  show_advanced_features: false
+  mobile_optimized: true
+  
+  charts:
+    default_timeframe: "24h"  # Options: 1h, 24h, 7d, 30d, 1y
+    chart_type: "line"  # Options: line, candlestick, area
+    show_volume: true
+    show_indicators: false
+
+# Performance
+performance:
+  cache_enabled: true
+  cache_size_mb: 100
+  background_workers: 2
+  max_concurrent_requests: 5
+  
+# Monitoring
+monitoring:
+  health_check_enabled: true
+  health_check_interval: 300  # seconds
+  metrics_enabled: false
+  alert_on_errors: true
+  
+# Development
+development:
+  hot_reload: false
+  show_debug_info: false
+  mock_api_responses: false

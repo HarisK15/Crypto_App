@@ -1,0 +1,62 @@
+# Crypto Alert Application Environment Variables
+# Copy this file to .env and fill in your actual values
+
+# =============================================================================
+# REQUIRED SETTINGS (You need these to run the app)
+# =============================================================================
+
+# API Keys - You need at least one of these
+GNEWS_API_KEY=your_gnews_api_key_here
+
+# =============================================================================
+# OPTIONAL SETTINGS (These are nice to have but not required)
+# =============================================================================
+
+# Database Configuration (Optional - uses SQLite by default)
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=crypto_alert
+DB_USER=your_db_username
+DB_PASSWORD=your_db_password
+
+# Email Notifications (Optional - only if you want email alerts)
+EMAIL_NOTIFICATIONS_ENABLED=false
+SMTP_SERVER=smtp.gmail.com
+SMTP_PORT=587
+EMAIL_USERNAME=your_email@gmail.com
+EMAIL_PASSWORD=your_app_password
+SENDER_EMAIL=your_email@gmail.com
+
+# Webhook Notifications (Optional - only if you want webhook alerts)
+WEBHOOK_NOTIFICATIONS_ENABLED=false
+WEBHOOK_URL=https://your-webhook-url.com/webhook
+WEBHOOK_HEADERS={"Content-Type": "application/json"}
+
+# SMS Notifications (Optional - only if you want SMS alerts via Twilio)
+SMS_NOTIFICATIONS_ENABLED=false
+TWILIO_ACCOUNT_SID=your_twilio_account_sid
+TWILIO_AUTH_TOKEN=your_twilio_auth_token
+TWILIO_FROM_NUMBER=+1234567890
+
+# =============================================================================
+# ADVANCED SETTINGS (Leave these as default unless you know what you're doing)
+# =============================================================================
+
+# Application Settings
+APP_DEBUG=false
+APP_LOG_LEVEL=INFO
+APP_AUTO_REFRESH_INTERVAL=60000
+
+# Security
+SECRET_KEY=your_secret_key_here
+SESSION_TIMEOUT_MINUTES=60
+
+# Performance
+CACHE_ENABLED=true
+CACHE_SIZE_MB=100
+MAX_CONCURRENT_REQUESTS=5
+
+# Monitoring
+HEALTH_CHECK_ENABLED=true
+HEALTH_CHECK_INTERVAL=300
+METRICS_ENABLED=false

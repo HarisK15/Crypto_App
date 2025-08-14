@@ -1,53 +1,83 @@
 import streamlit as st
-from app import add_to_watchlist
-from app import remove_from_watchlist
+from database import db_manager, get_watchlist
+from utils import fetch_prices_batch, validate_coin_id
 from datetime import datetime
-import json
-from utils import fetch_price
-import os
 
+st.title("🪙 Coin Management")
 
-st.title("Coin Management")
+# Get the current watchlist from the database
+watchlist = get_watchlist()
 
-
-
-watchlist_file = "watchlist.json"
-if os.path.exists(watchlist_file):
-    with open(watchlist_file, "r") as f:
-        watchlist = json.load(f)
+if watchlist:
+    st.subheader("📋 Current Watchlist")
+    
+    # Show each coin in the watchlist
+    for item in watchlist:
+        coin_id = item["coin_id"]
+        coin_name = item["coin_name"]
+        threshold_above = item.get("threshold_above")
+        threshold_below = item.get("threshold_below")
+        
+        # Layout for displaying coin info
+        col1, col2, col3, col4 = st.columns([2, 2, 2, 1])
+        
+        with col1:
+            st.write(f"**{coin_name.title()}**")
+        
+        with col2:
+            if threshold_above:
+                st.write(f"Alert above: ${threshold_above:,.2f}")
+            else:
+                st.write("No upper threshold")
+        
+        with col3:
+            if threshold_below:
+                st.write(f"Alert below: ${threshold_below:,.2f}")
+            else:
+                st.write("No lower threshold")
+        
+        with col4:
+            if st.button("Remove", key=f"remove_{coin_id}"):
+                if db_manager.remove_from_watchlist(coin_id):
+                    st.success(f"Removed {coin_name}")
+                    st.rerun()
+                else:
+                    st.error("Failed to remove coin")
+        
+        st.divider()
 else:
-    watchlist = []
+    st.info("No coins in watchlist yet. Add some coins below!")
 
-
-
-for item in watchlist:
-    coin = item["coin"]
-    threshold = item["threshold"]
-    direction = item["direction"]
-    price = fetch_price(coin)
-    # st.metric(label=f"{coin.capitalize()} price", value=f"${price}")
-    # st.caption(f"Alert when {direction} {threshold}")
-    # st.write(f"https://api.coingecko.com/api/v3/simple/price?ids={coin}&vs_currencies=usd")
-coin_names = list(set([item["coin"].lower() for item in watchlist]))
-
-
+# Form for adding new coins
 st.subheader("➕ Add New Coin")
 with st.form("add_form"):
-    coin = st.text_input("Coin ID (e.g., bitcoin)")
-    threshold = st.number_input("Threshold", step=1.0)
-    direction = st.selectbox("Direction", ["above", "below"])
-    submitted = st.form_submit_button("Add")
+    coin_id = st.text_input("Coin ID (e.g., bitcoin)", key="add_coin_id")
+    threshold_above = st.number_input("Alert Above ($)", min_value=0.0, step=0.01, key="add_threshold_above")
+    threshold_below = st.number_input("Alert Below ($)", min_value=0.0, step=0.01, key="add_threshold_below")
+    
+    submitted = st.form_submit_button("Add Coin")
+    
     if submitted:
-        add_to_watchlist(coin, threshold, direction)
-        st.success(f"Added {coin} to watchlist")
+        if coin_id and validate_coin_id(coin_id):
+            # Check if the coin exists by trying to get its price
+            price_data = fetch_prices_batch([coin_id])
+            if coin_id in price_data:
+                coin_name = coin_id.title()
+                if db_manager.add_to_watchlist(
+                    coin_id, coin_name, threshold_above, threshold_below
+                ):
+                    st.success(f"Added {coin_name} to watchlist")
+                    st.rerun()
+                else:
+                    st.error("Failed to add coin to watchlist")
+            else:
+                st.error(f"Coin {coin_id} not found. Please check the coin ID.")
+        else:
+            st.error("Invalid coin ID. Please use lowercase letters and hyphens only.")
 
-
-st.subheader("❌ Remove Coin")
-with st.form("remove_form"):
-    coin_to_remove = st.selectbox("Coin to remove", coin_names)
-    removed = st.form_submit_button("Remove")
-    if removed:
-        remove_from_watchlist(coin_to_remove)
-        st.success(f"Removed {coin_to_remove} from watchlist")
-
+# Show when we last refreshed
 st.write("Last refreshed at:", datetime.now().strftime("%H:%M:%S"))
+
+# Button to refresh the data
+if st.button("🔄 Refresh Data", key="refresh_data"):
+    st.rerun()

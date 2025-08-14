@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  crypto-alert:
+    build: .
+    container_name: crypto-alert-dashboard
+    ports:
+      - "8501:8501"
+    environment:
+      - STREAMLIT_SERVER_PORT=8501
+      - STREAMLIT_SERVER_ADDRESS=0.0.0.0
+      - PYTHONPATH=/app
+    volumes:
+      # Mount configuration and data directories
+      - ./config.yaml:/app/config.yaml:ro
+      - ./data:/app/data
+      - ./backups:/app/backups
+      - ./logs:/app/logs
+      # Mount .env file if it exists
+      - ./.env:/app/.env:ro
+    env_file:
+      - .env
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - crypto-alert-network
+
+  # Optional: Add Redis for caching (uncomment if needed)
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: crypto-alert-redis
+  #   ports:
+  #     - "6379:6379"
+  #   volumes:
+  #     - redis_data:/data
+  #   restart: unless-stopped
+  #   networks:
+  #     - crypto-alert-network
+
+  # Optional: Add PostgreSQL for production database (uncomment if needed)
+  # postgres:
+  #   image: postgres:15-alpine
+  #   container_name: crypto-alert-postgres
+  #   environment:
+  #     POSTGRES_DB: crypto_alert
+  #     POSTGRES_USER: crypto_user
+  #     POSTGRES_PASSWORD: crypto_password
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   restart: unless-stopped
+  #   networks:
+  #     - crypto-alert-network
+
+networks:
+  crypto-alert-network:
+    driver: bridge
+
+# Optional: Volumes for persistent data (uncomment if using Redis/PostgreSQL)
+# volumes:
+#   redis_data:
+#   postgres_data:
